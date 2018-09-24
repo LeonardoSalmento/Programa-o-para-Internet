@@ -16,17 +16,29 @@ Telefone: (86) 99833-8432
 - PHP
 - C, C++
 
+|Conhecimento um pouco mais aprofundado|
+| ------ |
+- Java
+- Python
 
-Noções de:
+
+|Noções de|
+| ------ |
 - Android
 - Manutenção de computadores
 
-Cusando o 5º módulo de inglês no CCL.
+Atualmente, Cursando o 5º módulo de inglês no CCL.
 
-# Interesses Academicos
+# Interesses Academicos ou Profissionais
+Pensando um pouco sobre o que 
 
 # Links
+|Projeto|Link|
+| ------ | ------ |
+|Projeto Eventos|https://github.com/julianamarques/Eventos|
+
 
 # Expectativa
+Terminar a disciplina tendo conhecimento para criar e/ou utilizar de APIs com novas tecnologias.
 
 # Temas que poderiam ser abordados
