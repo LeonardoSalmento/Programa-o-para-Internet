@@ -22,7 +22,7 @@ Telefone: (86) 99833-8432
 - Python
 
 
-|Noções de|
+|Noções|
 | ------ |
 - Android
 - Manutenção de computadores
