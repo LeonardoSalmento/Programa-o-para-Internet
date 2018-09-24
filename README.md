@@ -2,8 +2,8 @@ Repositório destinado a disciplina de Programação para Internet
 
 # Meios de contato
 ```sh
-| Email | salmento_@hotmail.com |
-| Telefone | (86) 99833-8432 |
+Email: salmento_@hotmail.com |
+Telefone: (86) 99833-8432 |
 ``` 
 
 # Habilidades
@@ -12,9 +12,9 @@ Repositório destinado a disciplina de Programação para Internet
 | ------ |
 
 
-|HTML, CSS|
-| PHP|
-|C, C++|
+|HTML, CSS[PlHT]|
+| PHP[PlPH]|
+|C, C++[PlC]|
 
 
 Noções de:
