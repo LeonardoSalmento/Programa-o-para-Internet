@@ -1,11 +1,30 @@
-# Programação para Internet
 Repositório destinado a disciplina de Programação para Internet
 
+# Meios de contato
+| Email | salmento_@hotmail.com |
+| Telefone | (86) 99833-8432 |
+ 
 
-# Informações Pessoais
+# Habilidades
 
-- Nome: Leonardo Lamberto de Santana Salmento
-- Email: salmento_@hotmail.com 
-- Telefone: (86) 99833-8432
+Conhecimento Básico:
+```sh
 
+- HTML, CSS
+- PHP
+- C, C++
+```
 
+Noções de:
+- Android
+- 
+
+Cusando o 5º módulo de inglês no CCL.
+
+# Interesses Academicos
+
+# Links
+
+# Expectativa
+
+# Temas que poderiam ser abordados
