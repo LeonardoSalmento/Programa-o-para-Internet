@@ -1,4 +1,4 @@
-# Programa-o-para-Internet
+# Programação para Internet
 Repositório destinado a disciplina de Programação para Internet
 
 
