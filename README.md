@@ -1,7 +1,7 @@
 Repositório destinado a disciplina de Programação para Internet
-```sh
-# Meios de contato
 
+# Meios de contato
+```sh
 Email: salmento_@hotmail.com 
 Telefone: (86) 99833-8432 
 ``` 
