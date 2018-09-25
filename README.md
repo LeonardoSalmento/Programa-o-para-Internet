@@ -42,7 +42,7 @@ Atualmente, Cursando o 5º módulo de inglês no CCL.
 
 
 # Expectativa
-Terminar a disciplina tendo conhecimento para criar e/ou utilizar de APIs com novas tecnologias.
+Aproveitar o conteúdo ministrado, compreendendo o assunto e aplicando de alguma forma.
 
 # Temas que poderiam ser abordados
 Sugestões de segurança para a web.
