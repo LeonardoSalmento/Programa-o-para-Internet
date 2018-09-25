@@ -30,7 +30,7 @@ Telefone: (86) 99833-8432
 Atualmente, Cursando o 5º módulo de inglês no CCL.
 
 # Interesses Academicos ou Profissionais
-Pensando um pouco sobre o que 
+Ainda não decidi o que fazer.
 
 # Links
 |Projeto|Link|
