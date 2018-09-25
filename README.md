@@ -2,7 +2,7 @@ Repositório destinado a disciplina de Programação para Internet
 
 Aluno: Leonardo Lamberto de Santana Salmento
 
-# Meios de contato
+# Contatos
 ```sh
 Email: salmento_@hotmail.com 
 Telefone: (86) 99833-8432 
@@ -10,16 +10,13 @@ Telefone: (86) 99833-8432
 
 # Habilidades
 
-|Conhecimento Básico|
+|Conhecimento|
 | ------ |
 
 
 - HTML, CSS
 - PHP
 - C, C++
-
-|Conhecimento um pouco mais aprofundado|
-| ------ |
 - Java
 - Python
 
@@ -29,7 +26,6 @@ Telefone: (86) 99833-8432
 - Android
 - Manutenção de computadores
 
-Atualmente, Cursando o 5º módulo de inglês no CCL.
 
 # Interesses Academicos ou Profissionais
 - Segurança da Informação
