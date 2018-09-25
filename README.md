@@ -35,10 +35,17 @@ Pensando um pouco sobre o que
 # Links
 |Projeto|Link|
 | ------ | ------ |
-|Projeto Eventos|https://github.com/julianamarques/Eventos|
+|Eventos|[github/julianamarques/evento][DBGE]|
 
 
 # Expectativa
 Terminar a disciplina tendo conhecimento para criar e/ou utilizar de APIs com novas tecnologias.
 
 # Temas que poderiam ser abordados
+
+
+
+
+
+
+[DBGE]: <https://github.com/julianamarques/Eventos>
