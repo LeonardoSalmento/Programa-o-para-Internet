@@ -30,7 +30,8 @@ Telefone: (86) 99833-8432
 Atualmente, Cursando o 5º módulo de inglês no CCL.
 
 # Interesses Academicos ou Profissionais
-Ainda não decidi o que fazer.
+- Segurança da Informação
+- Empreendedorismo
 
 # Links
 |Projeto|Link|
@@ -42,10 +43,7 @@ Ainda não decidi o que fazer.
 Terminar a disciplina tendo conhecimento para criar e/ou utilizar de APIs com novas tecnologias.
 
 # Temas que poderiam ser abordados
-
-
-
-
+Sugestões de segurança para a web.
 
 
 [DBGE]: <https://github.com/julianamarques/Eventos>
