@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>edit</title>
+	</head>
+	
+	<body>
+		<form>
+			<h1>My blog</h1>
+			{% for post in posts %} 
+				<h2> {{ post.title }}</h2>
+				<p>{{ post.text | linebreaksbr }}</p>
+				<p>{{ post.date_pub | linebreaksbr }}</p>
+			{% endfor %}
+
+			<a href="{% url 'add_post' %}">Add post</a>
+		</form>	
+
+	</body>
+</html>
