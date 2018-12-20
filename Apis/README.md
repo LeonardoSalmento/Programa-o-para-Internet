@@ -1,16 +1,16 @@
 Leonardo Lamberto de Santana Salmento
 
-#APIs
+# APIs
 
-# Regres
+**Regres**
 https://reqres.in/
 
-# Pokemon
+**Pokemon**
 
 - https://pokeapi.co/
 
 
 
-# Steam
+**Steam**
 - https://steamspy.com/about
 
