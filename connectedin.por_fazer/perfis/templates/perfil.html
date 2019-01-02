@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class = "col-lg-9">
+		<h2 style="margin-top: 0px">{{ perfil.nome }}</h2>
+		<address>			
+			Email: <a href = "mailto:{{ perfil.email }}">{{ perfil.email }}</a>
+			<br>
+			Nome da empresa: <strong>{{ perfil.nome_empresa }}</strong>
+		
+		</address>
+
+		<a href = "{% url 'convidar' perfil.id %}">
+			Convidar
+		</a>
+</div>
+
+<div class="col-lg-3">
+	{% if perfil.id == perfil_logado.id %}
+		<a href = "{% url 'redefinir_senha' %}">
+			Redefinir senha
+		</a>
+	{% endif %}
+	</div>
+{% endblock %}		
