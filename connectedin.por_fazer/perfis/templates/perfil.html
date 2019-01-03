@@ -8,15 +8,16 @@
 			Nome da empresa: <strong>{{ perfil.nome_empresa }}</strong>
 		
 		</address>
-
-		<a href = "{% url 'convidar' perfil.id %}">
-			Convidar
-		</a>
+		{% if perfil.id != perfil_logado.id %}
+			<a href = "{% url 'convidar' perfil.id %}">
+				Convidar
+			</a>
+		{% endif %}
 </div>
 
 <div class="col-lg-3">
 	{% if perfil.id == perfil_logado.id %}
-		<a href = "{% url 'redefinir_senha' %}">
+		<a href = "{% url 'change_password' %}">
 			Redefinir senha
 		</a>
 	{% endif %}

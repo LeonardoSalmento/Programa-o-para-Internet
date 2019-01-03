@@ -3,6 +3,10 @@ from django.views.generic.base import View
 from django.contrib.auth.models import User
 from perfis.models import Perfil
 from usuarios.forms import *
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
 
 
 class RegistrarUsuarioView(View):
@@ -26,17 +30,20 @@ class RedefinirSenhaView(View):
 	template_name = 'form_redefinir_senha.html'
 
 	def get(self, request):
-		return render (request, self.template_name)
+		form = RedefinirSenhaForm()
+		return render(request, self.template_name, {'form': form})
 
-	def post(self, request, perfil_id):
-		form = RedefinirSenhaForm (request.POST)
-		usuario_logado = User.objects.get(request.user.id)
+	def post(self, request):
+		form = RedefinirSenhaForm(request.POST)
+		usuario_logado = User.objects.get(id=request.user.id)
 		if form.is_valid():
 			dados_form = form.cleaned_data
-			if usuario_logado.password == dados_form['senha_atual']:
+			if usuario_logado.check_password(dados_form['senha_atual']):
 				if dados_form['nova_senha'] == dados_form['confirmacao_nova_senha']:
-					usuario_logado.set_password = dados_form['nova_senha']
+					usuario_logado.set_password(dados_form['nova_senha'])
 					usuario_logado.save()
 					return redirect('index')
 		
 		return render(request, self.template_name, {'form':form})
+	
+	

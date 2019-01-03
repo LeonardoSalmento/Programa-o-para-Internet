@@ -38,9 +38,9 @@ class Perfil(models.Model):
     def pode_convidar(self, perfil_convidado):
         return self.id != perfil_convidado.id and perfil_convidado not in self.contatos.all()
 
-    def redefinir_senha(self):
-        pass        
-        
+    def get_timeline(self):
+        pass
+
 
 
 class Convite(models.Model):

@@ -27,15 +27,12 @@ class RegistrarUsuarioForm(forms.Form):
 		errors.append(message)
 
 class RedefinirSenhaForm(forms.Form):
-	senha_atual = forms.CharField(required=True)
-	nova_senha = forms.CharField(required=True)
-	confimarcao_nova_senha = forms.CharField(required=True)
+	senha_atual = forms.CharField(required=False)
+	nova_senha = forms.CharField(required=False)
+	confirmacao_nova_senha = forms.CharField(required=False)
 
-	def is_valid(self):
-		valid = True
+	def adiciona_erro(self, message):
+		errors = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.utils.ErrorList())
+		errors.append(message)
 
-		if not super(RedefinirSenhaForm, self).is_valid():
-			self.adiciona_erro('Por favor, verifique os dados informados')
-			valid = False
-
-		return valid
+	
