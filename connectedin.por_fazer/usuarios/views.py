@@ -45,5 +45,4 @@ class RedefinirSenhaView(View):
 					return redirect('index')
 		
 		return render(request, self.template_name, {'form':form})
-	
-	
+

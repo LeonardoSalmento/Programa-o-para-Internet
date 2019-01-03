@@ -21,6 +21,10 @@ class Perfil(models.Model):
     def email(self):
         return self.usuario.email
 
+    @property
+    def superuser(self):
+        return self.usuario.is_superuser
+
 
     def __str__(self):
         return self.nome
@@ -37,6 +41,7 @@ class Perfil(models.Model):
 
     def pode_convidar(self, perfil_convidado):
         return self.id != perfil_convidado.id and perfil_convidado not in self.contatos.all()
+
 
     def get_timeline(self):
         pass

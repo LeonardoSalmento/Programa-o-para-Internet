@@ -13,7 +13,6 @@ def index(request):
 def exibir_perfil(request, perfil_id):
 
 	perfil = Perfil.objects.get(id=perfil_id)
-
 	return render(request, 'perfil.html',
 		          {'perfil' : perfil, 
 				   'perfil_logado' : get_perfil_logado(request)})
@@ -57,9 +56,16 @@ def recusar(request, convite_id):
 	convite.recusar()
 	return redirect('index')
 
+@login_required
 def redefinir_senha(request):
 	perfil_logado = get_perfil_logado(request)
 	perfil_logado.redefinir_senha()
 
-def form_senha(request):
-	return render(request, 'form_senha.html',{'perfil_logado' : get_perfil_logado(request)})
+@login_required
+def setarSuperUsuario(request, perfil_id):
+	perfil = Perfil.objects.get(id = perfil_id)
+	perfil.usuario.is_superuser = True
+	perfil.usuario.save()
+	perfil.save()
+	
+	return redirect('index')

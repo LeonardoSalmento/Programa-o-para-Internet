@@ -27,9 +27,9 @@ class RegistrarUsuarioForm(forms.Form):
 		errors.append(message)
 
 class RedefinirSenhaForm(forms.Form):
-	senha_atual = forms.CharField(required=False)
-	nova_senha = forms.CharField(required=False)
-	confirmacao_nova_senha = forms.CharField(required=False)
+	senha_atual = forms.CharField(required=True)
+	nova_senha = forms.CharField(required=True)
+	confirmacao_nova_senha = forms.CharField(required=True)
 
 	def adiciona_erro(self, message):
 		errors = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.utils.ErrorList())

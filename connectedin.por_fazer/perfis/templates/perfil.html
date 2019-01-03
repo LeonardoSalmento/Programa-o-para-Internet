@@ -12,12 +12,26 @@
 			<a href = "{% url 'convidar' perfil.id %}">
 				Convidar
 			</a>
+
+			<hr>
+			{% if perfil_logado.superuser and not perfil.superuser %}
+				<a href = "{% url 'super' perfil.id %}">
+					Tornar este perfil como super usuário
+				</a>
+			{% endif %}
+			
+			
 		{% endif %}
+
+		
+
+
 </div>
+
 
 <div class="col-lg-3">
 	{% if perfil.id == perfil_logado.id %}
-		<a href = "{% url 'change_password' %}">
+		<a href = "{% url 'form_redefinir_senha' %}">
 			Redefinir senha
 		</a>
 	{% endif %}
