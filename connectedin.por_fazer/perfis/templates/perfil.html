@@ -13,17 +13,20 @@
 				Convidar
 			</a>
 
-			<hr>
+			<br>
+
+			<a href = "{% url 'bloquear' perfil.id %}">
+				Bloquear perfil
+			</a>
+
+			<hr/>
 			{% if perfil_logado.superuser and not perfil.superuser %}
 				<a href = "{% url 'super' perfil.id %}">
 					Tornar este perfil como super usuário
 				</a>
 			{% endif %}
 			
-			
 		{% endif %}
-
-		
 
 
 </div>
@@ -34,6 +37,7 @@
 		<a href = "{% url 'form_redefinir_senha' %}">
 			Redefinir senha
 		</a>
+
 	{% endif %}
-	</div>
+</div>
 {% endblock %}		

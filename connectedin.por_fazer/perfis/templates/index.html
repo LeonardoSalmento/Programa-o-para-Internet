@@ -59,21 +59,23 @@
                 </div>
                 <ul class="list-group">
                     {% for convite in perfil_logado.convites_recebidos.all %}
-                        <li class = "list-group-item">
-                           <ul class = "list-inline">
-                                <li class = "list-inline-item">
+                    <li class = "list-group-item">
+                         
+                                
                                     <a href = "{% url 'exibir' convite.solicitante.id %}">
                                         {{convite.solicitante.nome}}
                                     </a>
-                                </li>
-                                <li class = "list-inline-item pull-right">
-                                    <a href = "{% url 'recusar' convite.id %}">recusar</a>
-                                </li>
-                                <li class = "list-inline-item pull-right">
-                                    <a href = "{% url 'aceitar' convite.id %}">aceitar</a>
-                                </li>
+                                    
+                                    
+                                    <a class = "pull-right" href = "{% url 'recusar' convite.id %}">| recusar</a>
+                                    <a class = "pull-right" href = "{% url 'aceitar' convite.id %}">aceitar |</a>
+                                    
+                                    
+                             
+                                
                         
                         </li>
+                        
                     {% endfor %}
                 </ul>
             {% else %}
@@ -82,6 +84,38 @@
                 </div>    
             {% endif %}
         {% endwith %}    
-    </div>    
+    </div> 
+    
+    
+    <div class="panel panel-default">
+            {% with total=perfil_logado.contatos_bloqueados.count %}
+                {% if total %}
+                    <div class="panel-heading">
+                        <strong> {{ total }}  
+                            Contato{{ total|pluralize }} bloqueado{{ total|pluralize }}
+                        </strong>
+                    </div>
+                    <ul class="list-group">
+                        {% for perfil in perfil_logado.contatos_bloqueados.all %}
+                            <li class = "list-group-item">
+                                <a href = "{% url 'exibir' perfil.id %}">
+                                    {{ perfil }}
+                                </a>
+
+                                <a class = "pull-right" href = "{% url 'desbloquear' perfil.id %}">desbloquear</a>
+                                
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="panel-body">
+                        Não há contatos bloqueados
+                    </div>    
+                {% endif %}
+            {% endwith %}    
+        </div>    
 </div>
+
+
+
 {% endblock %}

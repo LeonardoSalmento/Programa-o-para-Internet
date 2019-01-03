@@ -6,7 +6,11 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(request):
-	return render(request, 'index.html',{'perfis' : Perfil.objects.all(),
+	perfil_logado = Perfil.objects.get(id=request.user.id)
+	perfis_nao_bloqueados = perfil_logado.contatos_nao_bloqueados
+	print(perfis_nao_bloqueados)
+
+	return render(request, 'index.html',{'perfis' : perfis_nao_bloqueados,
 										 'perfil_logado' : get_perfil_logado(request)})
 
 @login_required
@@ -31,10 +35,8 @@ def convidar(request,perfil_id):
 
 @login_required
 def desfazer(request,perfil_id):
-	perfil_a_excluir = Perfil.objects.get(id=perfil_id)
-	perfil_logado = get_perfil_logado(request)
-	
-	perfil_logado.desfazer_amizade(perfil_a_excluir)
+	perfil_logado = get_perfil_logado(request)	
+	perfil_logado.desfazer_amizade(perfil_id)
 
 	return  redirect('index')
 
@@ -69,3 +71,19 @@ def setarSuperUsuario(request, perfil_id):
 	perfil.save()
 	
 	return redirect('index')
+
+
+@login_required
+def bloquear(request, perfil_id):
+	perfil_logado = get_perfil_logado(request)
+	perfil_logado.bloquear_contatos(perfil_id)
+	return redirect('index')
+
+@login_required
+def desbloquear(request, perfil_id):
+	perfil_logado = get_perfil_logado(request)
+	perfil_logado.desbloquear(perfil_id)
+	return redirect('index')
+
+
+
