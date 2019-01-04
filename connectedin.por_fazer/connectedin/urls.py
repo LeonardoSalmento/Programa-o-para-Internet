@@ -35,5 +35,7 @@ urlpatterns = [
     path('perfil/<int:perfil_id>/super', views.setarSuperUsuario, name='super'),
     path('perfil/<int:perfil_id>/bloquear', views.bloquear, name='bloquear'),
     path('perfil/<int:perfil_id>/desbloquear', views.desbloquear, name='desbloquear'),
+    path('perfil/postar', views.PostarView.as_view(), name='postar'),
+
     
 ]

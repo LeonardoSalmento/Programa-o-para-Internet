@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
+
 # Create your models here.
 
 # class Perfil(models.Model):
@@ -25,16 +27,15 @@ class Perfil(models.Model):
     def superuser(self):
         return self.usuario.is_superuser
     
-    @property
     def contatos_nao_bloqueados(self):
         perfis_nao_bloqueados = []
-        print(self.contatos.all())
-        print(self.contatos_bloqueados.all())
+        
         for i in Perfil.objects.all():
             if i not in self.contatos_bloqueados.all():
                 perfis_nao_bloqueados.append(i)
         return perfis_nao_bloqueados
 
+    
 
 
     def __str__(self):
@@ -60,13 +61,8 @@ class Perfil(models.Model):
     def desbloquear(self, perfil_id):
         self.contatos_bloqueados.remove(perfil_id)    
         
+        
     
-    
-    def get_timeline(self):
-        pass
-
-    
-
 
 
 class Convite(models.Model):
@@ -82,3 +78,11 @@ class Convite(models.Model):
         self.delete()
 
 
+class Postagem(models.Model):
+    dono = models.ForeignKey(Perfil, on_delete=models.CASCADE, related_name='minhas_postagens')
+
+    texto = models.CharField(max_length=400, null=False)
+    data_publicacao = models.DateTimeField(blank = False, null = False, default = datetime.now())
+
+    def __str__(self):
+        return self.texto
