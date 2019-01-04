@@ -63,10 +63,6 @@ class Perfil(models.Model):
     def desbloquear(self, perfil_id):
         self.contatos_bloqueados.remove(perfil_id)   
 
-    def excluir_postagem(self, id_postagem):
-        postagem = Postagem.objects.get(id=id_postagem) 
-        if self.id == postagem.dono.id:
-            Postagem
 
     @property    
     def timeline(self):

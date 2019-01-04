@@ -94,12 +94,11 @@ def desbloquear(request, perfil_id):
 	return redirect('index')
 
 @login_required
-def excluir_postagem(request, id_postagem):
-	postagem = Postagem.objects.get(id=id_postagem)
-	postagem.excluir()
+def deletar_postagem(request, postagem_id):
+	postagem = Postagem.objects.get(id=postagem_id)
+	postagem.excluir_postagem()
 
 	return redirect('index')
-
 
 
 class PostarView(View):
