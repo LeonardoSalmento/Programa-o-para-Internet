@@ -36,6 +36,7 @@ urlpatterns = [
     path('perfil/<int:perfil_id>/bloquear', views.bloquear, name='bloquear'),
     path('perfil/<int:perfil_id>/desbloquear', views.desbloquear, name='desbloquear'),
     path('perfil/postar', views.PostarView.as_view(), name='postar'),
+    path('postagem/<int:postagem_id>/excluir', views.excluir_postagem, name='excluir_postagem'),
 
     
 ]

@@ -93,6 +93,13 @@ def desbloquear(request, perfil_id):
 	perfil_logado.desbloquear(perfil_id)
 	return redirect('index')
 
+@login_required
+def excluir_postagem(request, id_postagem):
+	postagem = Postagem.objects.get(id=id_postagem)
+	postagem.excluir()
+
+	return redirect('index')
+
 
 
 class PostarView(View):
@@ -111,7 +118,7 @@ class PostarView(View):
 
 
 
-def list_posts(request):
-	posts = Postagem.objects.all().order_by('data_publicacao')
-	return render(request, 'index.html', {'posts': posts})
+#*def list_posts(request):
+# 	posts = Postagem.objects.all().order_by('data_publicacao')
+# 	return render(request, 'index.html', {'posts': posts})
 

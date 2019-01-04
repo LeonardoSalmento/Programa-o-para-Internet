@@ -35,8 +35,10 @@ class Perfil(models.Model):
                 perfis_nao_bloqueados.append(i)
         return perfis_nao_bloqueados
 
-    
-
+    @property
+    def get_postagens(self):
+        return Postagem.objects.filter(id=self.id)
+            
 
     def __str__(self):
         return self.nome
@@ -59,9 +61,26 @@ class Perfil(models.Model):
         self.contatos_bloqueados.add(perfil)
 
     def desbloquear(self, perfil_id):
-        self.contatos_bloqueados.remove(perfil_id)    
+        self.contatos_bloqueados.remove(perfil_id)   
+
+    def excluir_postagem(self, id_postagem):
+        postagem = Postagem.objects.get(id=id_postagem) 
+        if self.id == postagem.dono.id:
+            Postagem
+
+    @property    
+    def timeline(self):
+        lista_postagens = []
+        for i in Postagem.objects.all():
+            if i.dono in self.contatos.all():
+                lista_postagens.append(i)
         
-        
+        for i in Postagem.objects.all():
+            if i.dono.id == self.id:
+                print(i.dono)
+                lista_postagens.append(i)
+
+        return lista_postagens
     
 
 
@@ -86,3 +105,6 @@ class Postagem(models.Model):
 
     def __str__(self):
         return self.texto
+
+    def excluir_postagem(self):
+        self.delete()

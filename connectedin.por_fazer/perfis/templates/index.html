@@ -129,15 +129,17 @@
                 {% if total %}
                     <div class="panel-heading">
                         <strong> {{ total }}  
-                            Postage{{ total|pluralize }} 
+                            Postagem{{ total|pluralize }} 
                         </strong>
                     </div>
                     <ul class="list-group">
-                        {% for postagem in posts %}
+                        {% for postagem in perfil_logado.timeline %}
                             <li class = "list-group-item">
                                     {{ postagem }}
                                 </a>
-
+                                {% if postagem.dono.id == perfil_logado.id %}
+                                    <a class = "pull-right" href = "{% url 'excluir_postagem' postagem.id %}">excluir</a>
+                                {% endif %}
                                 
                             </li>
                         {% endfor %}
