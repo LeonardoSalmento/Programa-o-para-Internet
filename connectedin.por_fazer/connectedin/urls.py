@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from perfis import views 
 from usuarios.views import *
 from django.contrib.auth import views as v
+
 
 
 urlpatterns = [
@@ -38,6 +39,6 @@ urlpatterns = [
     path('perfil/postar', views.PostarView.as_view(), name='postar'),
     path('postagem/<int:postagem_id>/excluir', views.deletar_postagem, name='excluir_postagem'),
     path('perfil/pesquisar', views.PesquisarPerfilView.as_view(), name='pesquisar'),
-
+    path('perfis/', include('django.contrib.auth.urls')),
     
 ]
