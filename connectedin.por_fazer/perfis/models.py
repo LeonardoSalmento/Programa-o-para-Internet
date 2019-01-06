@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
 
 # Create your models here.
 
@@ -43,8 +42,8 @@ class Perfil(models.Model):
     def __str__(self):
         return self.nome
 
-    def desfazer_amizade(self, perfil_a_excluir):
-        self.contatos.remove(perfil_a_excluir.id)
+    def desfazer_amizade(self, perfil_id):
+        self.contatos.remove(perfil_id)
         
 
     def convidar(self, perfil_convidado):
@@ -67,15 +66,12 @@ class Perfil(models.Model):
     @property    
     def timeline(self):
         lista_postagens = []
-        for i in Postagem.objects.all():
-            if i.dono in self.contatos.all():
+
+        postagens_ordenadas = Postagem.objects.all().order_by('data_publicacao')
+        for i in postagens_ordenadas:
+            if i.dono in self.contatos.all() or i.dono.id == self.id:
                 lista_postagens.append(i)
         
-        for i in Postagem.objects.all():
-            if i.dono.id == self.id:
-                print(i.dono)
-                lista_postagens.append(i)
-
         return lista_postagens
     
 
@@ -97,7 +93,7 @@ class Postagem(models.Model):
     dono = models.ForeignKey(Perfil, on_delete=models.CASCADE, related_name='minhas_postagens')
 
     texto = models.CharField(max_length=400, null=False)
-    data_publicacao = models.DateTimeField(blank = False, null = False, default = datetime.now())
+    data_publicacao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.texto

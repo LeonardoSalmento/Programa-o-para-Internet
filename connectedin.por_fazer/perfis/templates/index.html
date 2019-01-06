@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<div>
+
+
+<div class="col-lg-12"> 
+    <br>
     <form class = "form-signin"  method="post" 
         action="{% url 'postar' %}">
         {% csrf_token %}
 
-    <p></p><input name="texto" id="id_postagem" required style="min-width: 650px; min-height: 150px; max-width: 650px; max-height: 150px;"></p>
-    <button type="submit">Postar</button>
+        <p><input name="texto" id="id_postagem" required placeholder=" Compartilhe algo conosco...." style="min-width: 670px; min-height: 150px; max-width: 650px; max-height: 150px;"></p>
+        <button class="btn btn-primary pull-right" type="submit">Postar</button>
+        <br>
     </form>
-</div>
 
-<div class="col-lg-12"> 		
+    <br>
+    <br>
+
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<strong>Todos os perfis</strong>
@@ -81,7 +86,6 @@
                                     <a class = "pull-right" href = "{% url 'recusar' convite.id %}">| recusar</a>
                                     <a class = "pull-right" href = "{% url 'aceitar' convite.id %}">aceitar |</a>
                                     
-                                    
                         
                         </li>
                         
@@ -125,31 +129,31 @@
         </div>
         
         <div class="panel panel-default">
-            {% with total=posts.count %}
-                {% if total %}
-                    <div class="panel-heading">
-                        <strong> {{ total }}  
-                            Postagem{{ total|pluralize }} 
-                        </strong>
-                    </div>
-                    <ul class="list-group">
-                        {% for postagem in perfil_logado.timeline %}
-                            <li class = "list-group-item">
-                                    {{ postagem }}
-                                </a>
-                                {% if postagem.dono.id == perfil_logado.id %}
-                                    <a class = "pull-right" href = "{% url 'excluir_postagem' postagem.id %}">excluir</a>
-                                {% endif %}
-                                
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <div class="panel-body">
-                        Não há postagens
-                    </div>    
-                {% endif %}
-            {% endwith %}    
+            
+        
+            {% if perfil_logado.timeline %}
+                <div class="panel-heading">
+                    <strong> {{ total }}  
+                        Postagem{{ total|pluralize }} 
+                    </strong>
+                </div>
+                <ul class="list-group">
+                    {% for postagem in perfil_logado.timeline %}
+                        <li class = "list-group-item">
+                                {{ postagem }}
+                            
+                            {% if postagem.dono.id == perfil_logado.id %}
+                                <a class = "pull-right" href = "{% url 'excluir_postagem' postagem.id %}">excluir</a>
+                            {% endif %}
+                            
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="panel-body">
+                    Não há postagens
+                </div>    
+            {% endif %}
         </div>
 </div>
 

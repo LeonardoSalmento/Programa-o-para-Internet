@@ -22,12 +22,20 @@
 					<li><a href = "/logout/">Logout</a></li>
 				</ul>
 				<a href="{% url 'index' %}" style = "text-decoration:none">
-				<h3 class = "text-muted">ConnectedIn</h3>
-			</a>
+					
+					<h3 class = "text-muted">ConnectedIn</h3>
+				</a>
+			<form class = "form-signin"  method="post" 
+    	    	action="{% url 'pesquisar' %}">
+        		{% csrf_token %}
+    			<input name="nome" id="nome_id" required placeholder="   Pesquisar usuário" style="min-height: 33px; min-width: 580px;">
+    			<button class="btn btn-primary pull-right" type="submit">Pesquisar</button>
+			</form>
+			<br>
 			</div>
 			
 			<div class="row content">
-
+				
 				{% block body%}
 
 				{% endblock %}				

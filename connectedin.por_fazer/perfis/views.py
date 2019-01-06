@@ -10,23 +10,22 @@ from django.views.generic.base import View
 @login_required
 def index(request):
 	form = PostForm()
-	perfil_logado = Perfil.objects.get(id=request.user.id)
+	perfil_logado = Perfil.objects.get(id=request.user.perfil.id)
 	perfis_nao_bloqueados = perfil_logado.contatos_nao_bloqueados
-	posts = Postagem.objects.all().order_by('data_publicacao')
 
 	return render(request, 'index.html',{'perfis' : perfis_nao_bloqueados,
 										 'perfil_logado' : get_perfil_logado(request),
-										  'posts': posts,
 										   'form':form})
+
 
 @login_required
 def exibir_perfil(request, perfil_id):
-
+	form = PesquisaUsuarioForm()
 	perfil = Perfil.objects.get(id=perfil_id)
-	is_contatos = get_perfil_logado(request).contatos.filter(id=perfil.id).exists()
 	return render(request, 'perfil.html',
 		          {'perfil' : perfil, 
-				   'perfil_logado' : get_perfil_logado(request)})
+				   'perfil_logado' : get_perfil_logado(request), 'form':form})
+
 
 @login_required
 def convidar(request,perfil_id):
@@ -52,6 +51,7 @@ def desfazer(request,perfil_id):
 def get_perfil_logado(request):	
 	return request.user.perfil
 
+
 @login_required
 def aceitar(request, convite_id):
 	convite = Convite.objects.get(id = convite_id)
@@ -65,10 +65,12 @@ def recusar(request, convite_id):
 	convite.recusar()
 	return redirect('index')
 
+
 @login_required
 def redefinir_senha(request):
 	perfil_logado = get_perfil_logado(request)
 	perfil_logado.redefinir_senha()
+
 
 @login_required
 def setarSuperUsuario(request, perfil_id):
@@ -93,6 +95,7 @@ def desbloquear(request, perfil_id):
 	perfil_logado.desbloquear(perfil_id)
 	return redirect('index')
 
+
 @login_required
 def deletar_postagem(request, postagem_id):
 	postagem = Postagem.objects.get(id=postagem_id)
@@ -104,7 +107,6 @@ def deletar_postagem(request, postagem_id):
 class PostarView(View):
 	def post(self, request):
 		form = PostForm(request.POST)
-		print(form.is_valid())
 		if form.is_valid():
 			dados_form = form.cleaned_data
 			postagem = Postagem()
@@ -116,8 +118,15 @@ class PostarView(View):
 		return redirect('index')
 
 
+class PesquisarPerfilView(View):
+	def post(self, request):
+		form = PesquisaUsuarioForm(request.POST)
+		print(form.is_valid())
 
-#*def list_posts(request):
-# 	posts = Postagem.objects.all().order_by('data_publicacao')
-# 	return render(request, 'index.html', {'posts': posts})
+		if form.is_valid():
+			dados_form = form.cleaned_data
+			perfis = Perfil.objects.filter(nome__icontains=dados_form['nome'])
+			
+			return render(request, 'pesquisa.html', {'perfis': perfis, 'perfil_logado':get_perfil_logado(request)})
 
+		return redirect('index')
