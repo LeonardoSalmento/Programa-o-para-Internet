@@ -15,7 +15,7 @@ class Perfil(models.Model):
     telefone = models.CharField(max_length=15, null=False)
     nome_empresa = models.CharField(max_length=255, null=False)
     contatos = models.ManyToManyField('self', related_name = 'meus_contatos')
-    contatos_bloqueados = models.ManyToManyField('self', related_name = 'meus_contatos_bloqueados')
+    contatos_bloqueados = models.ManyToManyField('self', related_name = 'meus_contatos_bloqueados', symmetrical=False)
     usuario = models.OneToOneField(User, related_name="perfil", on_delete = models.CASCADE)
     
     @property
@@ -25,6 +25,11 @@ class Perfil(models.Model):
     @property
     def superuser(self):
         return self.usuario.is_superuser
+    
+    @property
+    def meus_bloqueios(self):
+        bloqueio = Bloqueio.objects.filter(bloqueador=self)
+        return bloqueio
     
     def contatos_nao_bloqueados(self):
         perfis_nao_bloqueados = []
@@ -57,17 +62,17 @@ class Perfil(models.Model):
 
     def bloquear_contatos(self, perfil_id):
         perfil = Perfil.objects.get(id=perfil_id)
-        self.contatos_bloqueados.add(perfil)
-
-    def desbloquear(self, perfil_id):
-        self.contatos_bloqueados.remove(perfil_id)   
+        bloqueio = Bloqueio()
+        bloqueio.bloqueador = self
+        bloqueio.bloqueado = perfil
+        bloqueio.save()
 
 
     @property    
     def timeline(self):
         lista_postagens = []
 
-        postagens_ordenadas = Postagem.objects.all().order_by('data_publicacao')
+        postagens_ordenadas = Postagem.objects.all()[::-1]
         for i in postagens_ordenadas:
             if i.dono in self.contatos.all() or i.dono.id == self.id:
                 lista_postagens.append(i)
@@ -99,4 +104,15 @@ class Postagem(models.Model):
         return self.texto
 
     def excluir_postagem(self):
+        self.delete()
+
+
+class Bloqueio(models.Model):
+    bloqueador = models.ForeignKey(Perfil, on_delete = models.CASCADE, related_name = 'bloqueador')
+    bloqueado = models.ForeignKey(Perfil, on_delete = models.CASCADE, related_name = 'bloqueado')
+
+    def __str__(self):
+        return self.bloqueado.nome
+
+    def desbloquear(self):
         self.delete()

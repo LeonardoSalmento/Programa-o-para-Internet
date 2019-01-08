@@ -90,9 +90,9 @@ def bloquear(request, perfil_id):
 
 
 @login_required
-def desbloquear(request, perfil_id):
-	perfil_logado = get_perfil_logado(request)
-	perfil_logado.desbloquear(perfil_id)
+def desbloquear(request, bloqueio_id):
+	bloqueio = Bloqueio.objects.get(id = bloqueio_id)
+	bloqueio.desbloquear()
 	return redirect('index')
 
 
@@ -121,12 +121,18 @@ class PostarView(View):
 class PesquisarPerfilView(View):
 	def post(self, request):
 		form = PesquisaUsuarioForm(request.POST)
-		print(form.is_valid())
 
 		if form.is_valid():
 			dados_form = form.cleaned_data
+			perfil_logado = get_perfil_logado(request)
+			perfis_acessiveis = []
 			perfis = Perfil.objects.filter(nome__icontains=dados_form['nome'])
+
+			for perfil in perfis:
+				
+				if perfil_logado not in perfil.contatos_bloqueados.all():
+					perfis_acessiveis.append(perfil)
 			
-			return render(request, 'pesquisa.html', {'perfis': perfis, 'perfil_logado':get_perfil_logado(request)})
+			return render(request, 'pesquisa.html', {'perfis': perfis_acessiveis, 'perfil_logado':get_perfil_logado(request)})
 
 		return redirect('index')

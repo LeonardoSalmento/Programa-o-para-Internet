@@ -8,10 +8,15 @@
 			 href="{% static 'styles/bootstrap.css' %}">
 		<link rel="stylesheet" 
 			 href="{% static 'styles/main.css' %}">
-		<script
+		<!-- <script
 			 src="https://code.jquery.com/jquery-3.3.1.min.js"
 			 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-			 crossorigin="anonymous"></script>
+			 crossorigin="anonymous"></script> -->
+
+		<script src = "{% static 'scripts/vendor/jquery-1.9.1.js' %}" ></script>
+		<script src = "{% static 'scripts/vendor/bootstrap-min.js' %}" ></script>
+		<script src = "{% static 'scripts/vendor/bootbox.min.js' %}" ></script>
+		<script src = "{% static 'scripts/vendor/app.js' %}" ></script>
 
 	</head>
 	<body>
@@ -38,6 +43,7 @@
 				
 				{% block body%}
 
+					
 				{% endblock %}				
 			</div>		
 		</div>	
