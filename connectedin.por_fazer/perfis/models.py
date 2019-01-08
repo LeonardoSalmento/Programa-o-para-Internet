@@ -68,19 +68,6 @@ class Perfil(models.Model):
         bloqueio.save()
 
 
-    @property    
-    def timeline(self):
-        lista_postagens = []
-
-        postagens_ordenadas = Postagem.objects.all()[::-1]
-        for i in postagens_ordenadas:
-            if i.dono in self.contatos.all() or i.dono.id == self.id:
-                lista_postagens.append(i)
-        
-        return lista_postagens
-    
-
-
 class Convite(models.Model):
     solicitante = models.ForeignKey(Perfil,on_delete=models.CASCADE,related_name='convites_feitos' )
     convidado = models.ForeignKey(Perfil, on_delete= models.CASCADE, related_name='convites_recebidos')

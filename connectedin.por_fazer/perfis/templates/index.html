@@ -131,14 +131,14 @@
         <div class="panel panel-default">
             
         
-            {% if perfil_logado.timeline %}
+            {% if perfil_logado.minha_timeline.get_timeline %}
                 <div class="panel-heading">
                     <strong> {{ total }}  
                         Postagem{{ total|pluralize }} 
                     </strong>
                 </div>
                 <ul class="list-group">
-                    {% for postagem in perfil_logado.timeline %}
+                    {% for postagem in perfil_logado.minha_timeline.get_timeline %}
                         <li class = "list-group-item">
                                 <h3> {{ postagem.dono }} </h3>
                                 <p>{{ postagem }}</p>
