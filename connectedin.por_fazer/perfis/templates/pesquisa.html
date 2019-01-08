@@ -14,10 +14,10 @@
                 <ul class="list-group">
                     {% for perfil in perfis %}
                         <li class = "list-group-item">
-                                {{ perfil }}
+                                <p>{{ perfil }}
                             
                             {% if perfil.id not in perfil_logado.contatos.all %}
-                                <a class = "pull-right" href = "{% url 'convidar' perfil.id %}">convidar</a>
+                                <a class = "btn btn-primary pull-right" href = "{% url 'convidar' perfil.id %}">convidar</a></p>
                             {% endif %}
                             
                         </li>

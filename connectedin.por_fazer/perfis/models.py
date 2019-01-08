@@ -32,12 +32,40 @@ class Perfil(models.Model):
         return bloqueio
     
     def contatos_nao_bloqueados(self):
+
         perfis_nao_bloqueados = []
+        meus_bloqueios = Bloqueio.objects.filter(bloqueador=self)
+        perfis_me_bloquearam = Bloqueio.objects.filter(bloqueado=self)
+        ids_perfis_me_bloquearam = []
         
+        for perfil in perfis_me_bloquearam:
+            ids_perfis_me_bloquearam.append(perfil.bloqueador.id)
+       
         for i in Perfil.objects.all():
-            if i not in self.contatos_bloqueados.all():
+            if i.id not in ids_perfis_me_bloquearam and i not in meus_bloqueios:
                 perfis_nao_bloqueados.append(i)
+        
         return perfis_nao_bloqueados
+
+    def contatos_me_bloquearam(self):
+        perfis_me_bloquearam = Bloqueio.objects.filter(bloqueado=self)
+        ids_perfis_me_bloquearam = []
+        for i in perfis_me_bloquearam:
+            ids_perfis_me_bloquearam.append(i.bloqueador.id)
+
+        return ids_perfis_me_bloquearam
+
+
+    def pesquisar(self, nome_perfil):
+        resultado_pesquisa = []
+        perfis = Perfil.objects.filter(nome__icontains=nome_perfil)
+        ids_perfis_me_bloquearam = self.contatos_me_bloquearam()
+
+        for perfil in perfis:
+            if perfil.id not in ids_perfis_me_bloquearam and perfil.id != self.id:
+                resultado_pesquisa.append(perfil)
+
+        return resultado_pesquisa
 
     @property
     def get_postagens(self):

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from perfis.models import Perfil, Convite
+from perfis.models import *
 from django.shortcuts import redirect
 from perfis.forms import *
 from django.contrib.auth.decorators import login_required
@@ -125,13 +125,7 @@ class PesquisarPerfilView(View):
 		if form.is_valid():
 			dados_form = form.cleaned_data
 			perfil_logado = get_perfil_logado(request)
-			perfis_acessiveis = []
-			perfis = Perfil.objects.filter(nome__icontains=dados_form['nome'])
-
-			for perfil in perfis:
-				
-				if perfil_logado not in perfil.contatos_bloqueados.all():
-					perfis_acessiveis.append(perfil)
+			perfis_acessiveis = perfil_logado.pesquisar(dados_form['nome'])
 			
 			return render(request, 'pesquisa.html', {'perfis': perfis_acessiveis, 'perfil_logado':get_perfil_logado(request)})
 

@@ -48,12 +48,12 @@
                 <ul class="list-group">
                     {% for perfil in perfil_logado.contatos.all %}
                         <li class = "list-group-item">
-                            <a href = "{% url 'exibir' perfil.id %}">
+                            <p><a href = "{% url 'exibir' perfil.id %}">
                                 {{ perfil }}
                             </a>
-                            <a class="pull-right" href="{% url 'desfazer' perfil.id %}">
+                            <a class="btn btn-danger pull-right" href="{% url 'desfazer' perfil.id %}">
                                 desfazer amizade
-                            </a>
+                            </a></p>
                         </li>
                     {% endfor %}
                 </ul>
@@ -75,19 +75,14 @@
                 </div>
                 <ul class="list-group">
                     {% for convite in perfil_logado.convites_recebidos.all %}
-                    <li class = "list-group-item">
-                         
-                                
-                                    <a href = "{% url 'exibir' convite.solicitante.id %}">
-                                        {{convite.solicitante.nome}}
-                                    </a>
-                                    
-                                    
-                                    <a class = "pull-right" href = "{% url 'recusar' convite.id %}">| recusar</a>
-                                    <a class = "pull-right" href = "{% url 'aceitar' convite.id %}">aceitar |</a>
-                                    
-                        
-                        </li>
+                    <li class = "list-group-item"> 
+                        <p>
+                        <a href = "{% url 'exibir' convite.solicitante.id %}">
+                            {{convite.solicitante.nome}}
+                        </a>
+                        <a class = "btn btn-danger pull-right" href = "{% url 'recusar' convite.id %}">recusar</a>
+                        <a class = "btn btn-primary pull-right" href = "{% url 'aceitar' convite.id %}">aceitar</a></p>
+                    </li>
                         
                     {% endfor %}
                 </ul>
@@ -111,12 +106,11 @@
                     <ul class="list-group">
                         {% for perfil in perfil_logado.meus_bloqueios.all %}
                             <li class = "list-group-item">
-                                <a href = "{% url 'exibir' perfil.id %}">
+                                <p><a href = "{% url 'exibir' perfil.id %}">
                                     {{ perfil }}
                                 </a>
-
-                                <a class = "pull-right" href = "{% url 'desbloquear' perfil.id %}">desbloquear</a>
-                                
+                                <a class = "btn btn-default pull-right" href = "{% url 'desbloquear' perfil.id %}">desbloquear</a>
+                            </p>
                             </li>
                         {% endfor %}
                     </ul>
@@ -143,7 +137,7 @@
                                 <h3> {{ postagem.dono }} </h3>
                                 <p>{{ postagem }}</p>
                                 {% if postagem.dono.id == perfil_logado.id %}
-                                <button class="btn btn-default pull-right" id="btn-confirm">Excluir</button>
+                                <button class="btn btn-danger pull-right" id="btn-confirm">Excluir</button>
 
                                 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
                                   <div class="modal-dialog modal-sm">
@@ -166,9 +160,7 @@
                             {% endif %}
                             
                             <h5>{{postagem.data_publicacao}}</h5>   
-
-                            
-                            
+  
                             
                         </li>
                     {% endfor %}
