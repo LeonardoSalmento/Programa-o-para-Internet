@@ -39,6 +39,15 @@ urlpatterns = [
     path('perfil/postar', views.PostarView.as_view(), name='postar'),
     path('postagem/<int:postagem_id>/excluir', views.deletar_postagem, name='excluir_postagem'),
     path('perfil/pesquisar', views.PesquisarPerfilView.as_view(), name='pesquisar'),
-    path('perfis/', include('django.contrib.auth.urls')),
+    path('password_reset/$', v.PasswordResetView.as_view(template_name='password_reset_form.html'),
+         name='password_reset'),
+    path('password_reset/done/', v.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),
+         name='password_reset_done'),
+    path('reset/<uidb64>/<token>/',
+         v.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
+         name='password_reset_confirm'),
+    path('reset/done/$', v.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
+         name='password_reset_complete'),
+    
     
 ]

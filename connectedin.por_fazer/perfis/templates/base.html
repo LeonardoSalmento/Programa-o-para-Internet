@@ -22,26 +22,31 @@
 	<body>
 		<div class="container">
 			<div class = "header">
+				{% if request.user.perfil %}
 				<ul class = "nav nav-pills pull-right">
 					<li><a href = "{% url 'exibir' perfil_logado.id %}">{{ perfil_logado.nome }}</a></li>
 					<li><a href = "/logout/">Logout</a></li>
 				</ul>
+				{% endif %}
 				<a href="{% url 'index' %}" style = "text-decoration:none">
 					
 					<h3 class = "text-muted">ConnectedIn</h3>
 				</a>
+			{% if request.user.perfil %}	
 			<form class = "form-signin"  method="post" 
     	    	action="{% url 'pesquisar' %}">
+
         		{% csrf_token %}
     			<input name="nome" id="nome_id" required placeholder="   Pesquisar usuário" style="min-height: 33px; min-width: 580px;">
     			<button class="btn btn-primary pull-right" type="submit">Pesquisar</button>
 			</form>
+			{% endif %}
 			<br>
 			</div>
 			
 			<div class="row content">
 				
-				{% block body%}
+				{% block body %}
 
 					
 				{% endblock %}				
