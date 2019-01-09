@@ -16,7 +16,7 @@
                         <li class = "list-group-item">
                                 <p>{{ perfil }}
                             
-                            {% if perfil.id not in perfil_logado.contatos.all %}
+                            {% if perfil not in perfil_logado.contatos.all %}
                                 <a class = "btn btn-primary pull-right" href = "{% url 'convidar' perfil.id %}">convidar</a></p>
                             {% endif %}
                             

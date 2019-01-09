@@ -15,7 +15,7 @@ class Perfil(models.Model):
     telefone = models.CharField(max_length=15, null=False)
     nome_empresa = models.CharField(max_length=255, null=False)
     contatos = models.ManyToManyField('self', related_name = 'meus_contatos')
-    contatos_bloqueados = models.ManyToManyField('self', related_name = 'meus_contatos_bloqueados', symmetrical=False)
+    contatos_bloqueados = models.ManyToManyField('self', related_name = 'meus_contatos_bloqueados', symmetrical=False, through='Bloqueio')
     usuario = models.OneToOneField(User, related_name="perfil", on_delete = models.CASCADE)
     
     @property
@@ -34,7 +34,6 @@ class Perfil(models.Model):
     def contatos_nao_bloqueados(self):
 
         perfis_nao_bloqueados = []
-        meus_bloqueios = Bloqueio.objects.filter(bloqueador=self)
         perfis_me_bloquearam = Bloqueio.objects.filter(bloqueado=self)
         ids_perfis_me_bloquearam = []
         
@@ -42,7 +41,7 @@ class Perfil(models.Model):
             ids_perfis_me_bloquearam.append(perfil.bloqueador.id)
        
         for i in Perfil.objects.all():
-            if i.id not in ids_perfis_me_bloquearam and i not in meus_bloqueios:
+            if i.id not in ids_perfis_me_bloquearam and i not in self.meus_bloqueios.all():
                 perfis_nao_bloqueados.append(i)
         
         return perfis_nao_bloqueados
@@ -84,8 +83,25 @@ class Perfil(models.Model):
             convite = Convite(solicitante=self,convidado = perfil_convidado)
             convite.save()  
 
-    def pode_convidar(self, perfil_convidado):
-        return self.id != perfil_convidado.id and perfil_convidado not in self.contatos.all()
+    def pode_convidar(self, perfil):    
+        convites = Convite.objects.filter(solicitante=self, convidado=perfil).all()
+        if len(convites) == 0:
+            return self.id != perfil.id and perfil not in self.contatos.all()
+        
+        return False
+
+    def pode_bloquear(self, perfil):
+        for i in self.meus_bloqueios.all():
+            if i.bloqueado.id == perfil.id:
+                return False    
+        return self.id != perfil.id
+
+    def pode_exibir(self, perfil):
+        for i in perfil.meus_bloqueios.all():
+            if i.bloqueado.id == self.id:
+                return False    
+        return True
+            
 
 
     def bloquear_contatos(self, perfil_id):

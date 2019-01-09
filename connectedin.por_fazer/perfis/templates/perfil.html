@@ -2,62 +2,66 @@
 {% block body %}
 <div class = "col-lg-12">
 		
+		{% if posso_exibir %}
+				<h2 style="margin-top: 0px">{{ perfil.nome }}</h2>
+				<address>			
+					Email: <a href = "mailto:{{ perfil.email }}">{{ perfil.email }}</a>
+					<br>
+					Nome da empresa: <strong>{{ perfil.nome_empresa }}</strong>
+				
+				</address>
+				{% if posso_convidar %}
+					<a class="btn btn-default" href = "{% url 'convidar' perfil.id %}">
+						Convidar
+					</a>
 
-		<h2 style="margin-top: 0px">{{ perfil.nome }}</h2>
-		<address>			
-			Email: <a href = "mailto:{{ perfil.email }}">{{ perfil.email }}</a>
-			<br>
-			Nome da empresa: <strong>{{ perfil.nome_empresa }}</strong>
-		
-		</address>
-		{% if perfil.id != perfil_logado.id %}
-			<a class="btn btn-default" href = "{% url 'convidar' perfil.id %}">
-				Convidar
-			</a>
+					<br>
+				{% endif %}
 
-			<br>
-		{% endif %}
+				{% if posso_bloquear %}	
+				
+					
 
-		{% if perfil.id != perfil_logado.id %}	
-		
-			
+					<button class="btn btn-default" id="btn-confirm">Bloquear Perfil</button>
 
-			<button class="btn btn-default" id="btn-confirm">Bloquear Perfil</button>
+					<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel">Deseja realmente apagar o perfil?</h4>
+								</div>
+								<div class="modal-footer">
+							<p><a class="btn btn-default cd-popup-no" href="{% url 'exibir' perfil.id %}">Cancelar</a>
+								<a class="btn btn-default" href = "{% url 'bloquear' perfil.id %}">Bloquear</a>
+							</p>
 
-			<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
-			  <div class="modal-dialog modal-sm">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="myModalLabel">Deseja realmente apagar o perfil?</h4>
-			      </div>
-			      <div class="modal-footer">
-					<p><a class="btn btn-default cd-popup-no" href="{% url 'exibir' perfil.id %}">Cancelar</a>
-						<a class="btn btn-default" href = "{% url 'bloquear' perfil.id %}">Bloquear</a>
-					</p>
-
-			      </div>
-			    </div>
-			  </div>
-			</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
 
-			<hr/>
-			{% if perfil_logado.superuser and not perfil.superuser %}
-				<a class="btn btn-default" href = "{% url 'super' perfil.id %}">
-					Tornar este perfil como super usuário
+					<hr/>
+					{% if perfil_logado.superuser and not perfil.superuser %}
+						<a class="btn btn-default" href = "{% url 'super' perfil.id %}">
+							Tornar este perfil como super usuário
+						</a>
+					{% endif %}
+					
+				{% endif %}
+
+
+				{% if perfil.id == perfil_logado.id %}
+				<a class="btn btn-default" href = "{% url 'form_redefinir_senha' %}">
+					Redefinir senha
 				</a>
+
 			{% endif %}
-			
-		{% endif %}
+		{% else %}
+			<h1>Usuário não existe</h1>
 
-
-		{% if perfil.id == perfil_logado.id %}
-		<a class="btn btn-default" href = "{% url 'form_redefinir_senha' %}">
-			Redefinir senha
-		</a>
-
-	{% endif %}
+		{% endif %}			
 
 </div>
 

@@ -20,11 +20,14 @@ def index(request):
 
 @login_required
 def exibir_perfil(request, perfil_id):
-	form = PesquisaUsuarioForm()
 	perfil = Perfil.objects.get(id=perfil_id)
+	perfil_logado = get_perfil_logado(request)
+	posso_convidar = perfil_logado.pode_convidar(perfil)
+	posso_bloquear = perfil_logado.pode_bloquear(perfil)
+	posso_exibir = perfil_logado.pode_exibir(perfil)
 	return render(request, 'perfil.html',
 		          {'perfil' : perfil, 
-				   'perfil_logado' : get_perfil_logado(request), 'form':form})
+				   'perfil_logado' : perfil_logado, 'posso_convidar': posso_convidar, 'posso_bloquear': posso_bloquear, 'posso_exibir': posso_exibir})
 
 
 @login_required

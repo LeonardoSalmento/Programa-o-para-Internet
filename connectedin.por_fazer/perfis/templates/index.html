@@ -104,12 +104,12 @@
                         </strong>
                     </div>
                     <ul class="list-group">
-                        {% for perfil in perfil_logado.meus_bloqueios.all %}
+                        {% for bloqueio in perfil_logado.meus_bloqueios.all %}
                             <li class = "list-group-item">
-                                <p><a href = "{% url 'exibir' perfil.id %}">
-                                    {{ perfil }}
+                                <p><a href = "{% url 'exibir' bloqueio.bloqueado.id %}">
+                                    {{ bloqueio }}
                                 </a>
-                                <a class = "btn btn-default pull-right" href = "{% url 'desbloquear' perfil.id %}">desbloquear</a>
+                                <a class = "btn btn-default pull-right" href = "{% url 'desbloquear' bloqueio.id %}">desbloquear</a>
                             </p>
                             </li>
                         {% endfor %}
