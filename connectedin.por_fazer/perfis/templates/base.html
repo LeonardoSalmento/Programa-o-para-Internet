@@ -27,12 +27,12 @@
 					<li><a href = "{% url 'exibir' perfil_logado.id %}">{{ perfil_logado.nome }}</a></li>
 					<li><a href = "/logout/">Logout</a></li>
 				</ul>
-				{% endif %}
+				
 				<a href="{% url 'index' %}" style = "text-decoration:none">
 					
 					<h3 class = "text-muted">ConnectedIn</h3>
 				</a>
-			{% if request.user.perfil %}	
+				
 			<form class = "form-signin"  method="post" 
     	    	action="{% url 'pesquisar' %}">
 
@@ -40,6 +40,9 @@
     			<input name="nome" id="nome_id" required placeholder="   Pesquisar usuário" style="min-height: 33px; min-width: 580px;">
     			<button class="btn btn-primary pull-right" type="submit">Pesquisar</button>
 			</form>
+			{% else %}
+				<h3 class = "text-muted">ConnectedIn</h3>
+
 			{% endif %}
 			<br>
 			</div>
