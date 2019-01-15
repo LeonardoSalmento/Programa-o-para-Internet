@@ -11,5 +11,10 @@ class AccountSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         balance = data['balance']
+        if balance < 0:
+            raise ValidationError('Balance negativo')
+
         if balance == 0:
             raise ValidationError('Valor do balance não pode ser 0')
+
+
