@@ -9,6 +9,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Game
+from games.serializers import GameSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -21,6 +22,8 @@ def game_list(request):
     elif request.method == 'POST':
         game_serializer = GameSerializer(data=request.data)
         if game_serializer.is_valid():
+            if Game.objects.filter(name=game_serializer.validated_data['name']).exists():
+                return Response(game_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             game_serializer.save()
             return Response(game_serializer.data, status=status.HTTP_201_CREATED)
 
@@ -28,9 +31,9 @@ def game_list(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE' ])
-def game_detail(request, pk):
+def game_detail(request, game_id):
     try:
-        game = Game.objects.get(pk=pk)
+        game = Game.objects.get(id=game_id)
     except Game.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -43,4 +46,8 @@ def game_detail(request, pk):
         if game_serializer.is_valid():
             game_serializer.save()
             return Response(game_serializer.data)
-    return Response(game_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(game_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        game.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
