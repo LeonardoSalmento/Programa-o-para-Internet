@@ -1,4 +1,6 @@
 from django.db import models
+from datetime import datetime, timezone
+
 
 # Create your models here.
 class Game(models.Model):
@@ -10,3 +12,7 @@ class Game(models.Model):
 
 	class Meta:
 		ordering = ('name',)
+
+
+	def pode_ser_excluido(self):
+		return (self.release_date < datetime.now(timezone.utc))

@@ -12,6 +12,8 @@ from .models import Game
 from games.serializers import GameSerializer
 
 
+
+
 @api_view(['GET', 'POST'])
 def game_list(request):
     if request.method == 'GET':
@@ -43,11 +45,22 @@ def game_detail(request, game_id):
 
     elif request.method == 'PUT':
         game_serializer = GameSerializer(game, data=request.data)
+        
         if game_serializer.is_valid():
+            jogos_mesmo_nome = Game.objects.filter(name=game_serializer.validated_data['name'])
+            
+
+            if len(jogos_mesmo_nome) > 1 or jogos_mesmo_nome.exists() and jogos_mesmo_nome[0].release_date == game_serializer.validated_data['release_date'] and jogos_mesmo_nome[0].game_category == game_serializer.validated_data['game_category']:
+                return Response(game_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
             game_serializer.save()
             return Response(game_serializer.data)
         return Response(game_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    elif request.method == 'DELETE':            
+
+        if game.pode_ser_excluido():
+            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            
         game.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
