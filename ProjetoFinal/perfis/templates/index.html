@@ -5,7 +5,29 @@
 <div class="row">
 
     <div class="col-lg-3">
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="overflow-y: scroll; height: 200px;">
+            <div class="panel-heading">
+                <strong>Todos os perfis</strong>
+            </div>
+            {% if perfis %}
+            <ul class="list-group">
+                {% for perfil in perfis %}
+                {% if perfil.nome != perfil_logado.nome %}
+                <li class="list-group-item">
+                    <a href="{% url 'exibir' perfil.id %}"> {{ perfil.nome }} / {{ perfil.email }}
+                    </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <p>Não há perfis cadastrados</p>
+                {% endif %}
+            </ul>
+        </div>
+
+
+
+        <div class="panel panel-default" style="overflow-y: scroll; height: 200px;">
             {% with total=perfil_logado.contatos.count %}
             {% if total %}
             <div class="panel-heading">
@@ -32,6 +54,8 @@
             {% endif %}
             {% endwith %}
         </div>
+
+
     </div>
 
 
@@ -48,32 +72,7 @@
         <br>
         <br>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <strong>Todos os perfis</strong>
-            </div>
-            {% if perfis %}
-            <ul class="list-group">
-                {% for perfil in perfis %}
-                {% if perfil.nome != perfil_logado.nome %}
-                <li class="list-group-item">
-                    <a href="{% url 'exibir' perfil.id %}"> {{ perfil.nome }} / {{ perfil.email }}
-                    </a>
-                </li>
-                {% endif %}
-                {% endfor %}
-                {% else %}
-                <p>Não há perfis cadastrados</p>
-                {% endif %}
-            </ul>
-        </div>
-
-
-
-
-
-
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="overflow-y: scroll; height: 200px;">
             {% with total=perfil_logado.meus_bloqueios.count %}
             {% if total %}
             <div class="panel-heading">
@@ -154,7 +153,7 @@
     </div>
 
     <div class="col-lg-3">
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="overflow-y: scroll; height: 200px;">
             <div>
                 {% with total=perfil_logado.convites_recebidos.count %}
 
@@ -183,10 +182,10 @@
                 {% endif %}
                 {% endwith %}
             </div>
-            
-           
+
+
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="overflow-y: scroll; height: 200px;">
             {% with total=perfil_logado.convites_feitos.count %}
 
             {% if total %}
@@ -201,7 +200,7 @@
                         <a href="{% url 'exibir' convite.solicitante.id %}">
                             {{convite.convidado.nome}}
                         </a>
-                        
+
                 </li>
 
                 {% endfor %}
