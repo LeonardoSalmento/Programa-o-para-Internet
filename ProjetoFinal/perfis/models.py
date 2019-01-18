@@ -30,6 +30,13 @@ class Perfil(models.Model):
     def meus_bloqueios(self):
         bloqueio = Bloqueio.objects.filter(bloqueador=self)
         return bloqueio
+
+    def bloqueados(self):
+        lista_bloqueados = []
+        for i in self.meus_bloqueios:
+            lista_bloqueados.append(i.bloqueado)
+
+        return lista_bloqueados
     
     def contatos_nao_bloqueados(self):
 
