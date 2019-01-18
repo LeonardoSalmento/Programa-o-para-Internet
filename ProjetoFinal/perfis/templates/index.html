@@ -155,22 +155,53 @@
 
     <div class="col-lg-3">
         <div class="panel panel-default">
-            {% with total=perfil_logado.convites_recebidos.count %}
+            <div>
+                {% with total=perfil_logado.convites_recebidos.count %}
+
+                {% if total %}
+                <div class="panel-heading">
+                    <strong> {{ total }}
+                        Convite{{ total|pluralize }} aguardando aprovação</strong>
+                </div>
+                <ul class="list-group">
+                    {% for convite in perfil_logado.convites_recebidos.all %}
+                    <li class="list-group-item">
+                        <p>
+                            <a href="{% url 'exibir' convite.solicitante.id %}">
+                                {{convite.solicitante.nome}}
+                            </a>
+                            <a class="btn btn-danger pull-right" href="{% url 'recusar' convite.id %}">recusar</a>
+                            <a class="btn btn-primary pull-right" href="{% url 'aceitar' convite.id %}">aceitar</a></p>
+                    </li>
+
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="panel-body">
+                    Não há convites
+                </div>
+                {% endif %}
+                {% endwith %}
+            </div>
+            
+           
+        </div>
+        <div class="panel panel-default">
+            {% with total=perfil_logado.convites_feitos.count %}
 
             {% if total %}
             <div class="panel-heading">
                 <strong> {{ total }}
-                    Convite{{ total|pluralize }} aguardando aprovação</strong>
+                    Convite{{ total|pluralize }} enviado{{ total|pluralize }}</strong>
             </div>
             <ul class="list-group">
-                {% for convite in perfil_logado.convites_recebidos.all %}
+                {% for convite in perfil_logado.convites_feitos.all %}
                 <li class="list-group-item">
                     <p>
                         <a href="{% url 'exibir' convite.solicitante.id %}">
-                            {{convite.solicitante.nome}}
+                            {{convite.convidado.nome}}
                         </a>
-                        <a class="btn btn-danger pull-right" href="{% url 'recusar' convite.id %}">recusar</a>
-                        <a class="btn btn-primary pull-right" href="{% url 'aceitar' convite.id %}">aceitar</a></p>
+                        
                 </li>
 
                 {% endfor %}
