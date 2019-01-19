@@ -77,38 +77,11 @@
         <br>
         <br>
 
-        <div class="panel panel-default" >
-            {% with total=perfil_logado.meus_bloqueios.count %}
-            {% if total %}
-            <div class="panel-heading">
-                <strong> {{ total }}
-                    Contato{{ total|pluralize }} bloqueado{{ total|pluralize }}
-                </strong>
-            </div>
-
-            <div style="overflow-y: scroll; height: 200px;">
-            <ul class="list-group">
-                {% for bloqueio in perfil_logado.meus_bloqueios.all %}
-                <li class="list-group-item">
-                    <p><a href="{% url 'exibir' bloqueio.bloqueado.id %}">
-                            {{ bloqueio }}
-                        </a>
-                        <a class="btn btn-default pull-right" href="{% url 'desbloquear' bloqueio.id %}">desbloquear</a>
-                    </p>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-            {% else %}
-            <div class="panel-body">
-                Não há contatos bloqueados
-            </div>
-            {% endif %}
-            {% endwith %}
-        </div>
+        
 
         <div class="panel panel-default">
 
+            {% with total=perfil_logado.minha_timeline.get_timeline.count %}
 
             {% if perfil_logado.minha_timeline.get_timeline %}
             <div class="panel-heading">
@@ -157,6 +130,8 @@
                 Não há postagens
             </div>
             {% endif %}
+            {% endwith %}
+
         </div>
     </div>
 
