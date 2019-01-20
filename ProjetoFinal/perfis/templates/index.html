@@ -5,6 +5,8 @@
 <div class="row">
 
     <div class="col-lg-3">
+       
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <strong>Sugestões de amizade</strong>
@@ -13,7 +15,7 @@
             <div style="overflow-y: scroll; height: 200px;">    
             <ul class="list-group">
                 {% for perfil in perfis %}
-                {% if perfil.nome != perfil_logado.nome and perfil not in perfil_logado.contatos.all and perfil not in perfil_logado.bloqueados %}
+                    {% if perfil.nome != perfil_logado.nome and perfil not in perfil_logado.contatos.all and perfil not in perfil_logado.bloqueados %}
                 <li class="list-group-item">
                     <a href="{% url 'exibir' perfil.id %}"> {{ perfil.nome }} 
                     </a>
@@ -60,6 +62,33 @@
             {% endwith %}
         </div>
 
+         {% if perfil_logado.superuser %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Todos os perfis</strong>
+                </div>
+            {% if perfis %}
+            <div style="overflow-y: scroll; height: 200px;">    
+            <ul class="list-group">
+                {% for perfil in perfis %}
+                    {% if perfil.nome != perfil_logado.nome %}
+                <li class="list-group-item">
+                    <a href="{% url 'exibir' perfil.id %}"> {{ perfil.nome }} 
+                    </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                
+            </ul>
+                {% else %}
+                <p>Não há perfis cadastrados</p>
+                {% endif %}
+
+        </div>
+    </div>
+        {% endif %}
+    
+
 
     </div>
 
@@ -86,7 +115,7 @@
             {% if perfil_logado.minha_timeline.get_timeline %}
             <div class="panel-heading">
                 <strong> {{ total }}
-                    Postagem{{ total|pluralize }}
+                    Linha do Tempo
                 </strong>
             </div>
             <ul class="list-group">
@@ -185,6 +214,8 @@
                         <a href="{% url 'exibir' convite.convidado.id %}">
                             {{convite.convidado.nome}}
                         </a>
+
+                        <a class="btn btn-danger pull-right" href="{% url 'recusar' convite.id %}">Cancelar</a>
 
                 </li>
 
