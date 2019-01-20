@@ -18,6 +18,7 @@ class Perfil(models.Model):
     contatos_bloqueados = models.ManyToManyField('self', related_name = 'meus_contatos_bloqueados', symmetrical=False, through='Bloqueio')
     usuario = models.OneToOneField(User, related_name="perfil", on_delete = models.CASCADE)
     
+    
     @property
     def email(self):
         return self.usuario.email

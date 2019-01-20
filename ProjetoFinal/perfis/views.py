@@ -4,6 +4,9 @@ from django.shortcuts import redirect
 from perfis.forms import *
 from django.contrib.auth.decorators import login_required
 from django.views.generic.base import View
+from django.core.paginator import Paginator, InvalidPage
+
+
 
 # Create your views here.
 
@@ -12,10 +15,24 @@ def index(request):
 	form = PostForm()
 	perfil_logado = Perfil.objects.get(id=request.user.perfil.id)
 	perfis_nao_bloqueados = perfil_logado.contatos_nao_bloqueados
-
-	return render(request, 'index.html',{'perfis' : perfis_nao_bloqueados,
-										 'perfil_logado' : get_perfil_logado(request),
-										   'form':form})
+	
+	page = request.GET.get("page", 1)
+	paginator = Paginator(perfil_logado.minha_timeline.get_timeline(), 10)
+	total = paginator.count
+	
+	try:
+		timeline = paginator.page(page)
+	except InvalidPage:
+		timeline = paginator.page(1)
+		
+	contexto = {
+		'perfis' : perfis_nao_bloqueados,
+		'perfil_logado' : get_perfil_logado(request),
+		'form':form,
+		'timeline':timeline
+		}
+		
+	return render(request, 'index.html', contexto)
 
 
 @login_required
@@ -25,9 +42,16 @@ def exibir_perfil(request, perfil_id):
 	posso_convidar = perfil_logado.pode_convidar(perfil)
 	posso_bloquear = perfil_logado.pode_bloquear(perfil)
 	posso_exibir = perfil_logado.pode_exibir(perfil)
-	return render(request, 'perfil.html',
-		          {'perfil' : perfil, 
-				   'perfil_logado' : perfil_logado, 'posso_convidar': posso_convidar, 'posso_bloquear': posso_bloquear, 'posso_exibir': posso_exibir})
+
+	contexto = {'perfil' : perfil, 
+				'perfil_logado' : perfil_logado,
+				'posso_convidar': posso_convidar,
+				'posso_bloquear': posso_bloquear, 
+				'posso_exibir': posso_exibir
+				}
+
+	return render(request, 'perfil.html', contexto)
+		          
 
 
 @login_required

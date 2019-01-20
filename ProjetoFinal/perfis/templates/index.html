@@ -28,7 +28,7 @@
                 <p>Não há perfis cadastrados</p>
                 {% endif %}
 
-        </div>
+            </div>
             
         </div>
 
@@ -110,16 +110,16 @@
 
         <div class="panel panel-default">
 
-            {% with total=perfil_logado.minha_timeline.get_timeline.count %}
+            {% with total=timeline.count %}
 
-            {% if perfil_logado.minha_timeline.get_timeline %}
+            {% if timeline %}
             <div class="panel-heading">
                 <strong> {{ total }}
                     Linha do Tempo
                 </strong>
             </div>
             <ul class="list-group">
-                {% for postagem in perfil_logado.minha_timeline.get_timeline %}
+                {% for postagem in timeline %}
                 <li class="list-group-item">
                     <h3> {{ postagem.dono }} </h3>
                     <p>{{ postagem }}</p>
@@ -152,7 +152,40 @@
 
 
                 </li>
+                
                 {% endfor %}
+
+
+
+                <div class="pagination ">
+                    <span class="current">
+                        Página {{ timeline.number }} de {{ timeline.paginator.num_pages }}.
+                    
+                    </span>
+
+
+                {% if timeline.has_previous %}
+                        <li class="page-item ">
+                        <span class="step-links">    
+                        <a class= "page-link" href="?page={{ timeline.previous_page_number }}">Anterior</a>
+                        </li>
+                {% endif %}
+
+                {% for i in timeline.paginator.page_range %}
+                    
+                        <ul class="pagination justify-content-center"> 
+                            <li class="page-item"><a class="page-link" href="?page={{ timeline.i }}{{i}}">{{ i }}</a></li>
+                        </ul>
+                    
+                {% endfor %}
+                
+                {% if timeline.has_next %}
+                    <li class="page-item">
+                    <a class="page-link" href="?page={{ timeline.next_page_number }}">Próxima</a>
+                    </li>
+                    {% endif %}
+            
+            </div>
             </ul>
             {% else %}
             <div class="panel-body">
