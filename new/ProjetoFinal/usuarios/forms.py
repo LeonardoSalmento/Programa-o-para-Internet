@@ -55,9 +55,7 @@ class LoginForm(forms.Form):
 			self.adiciona_erro('Por favor, verifique os dados informados')
 			valid = False
 
-		lista_usuarios = User.objects.filter(username=self.cleaned_data['username'])
-		usuario = lista_usuarios[0]
-		print(usuario.perfil.justificativa)
+		usuario = User.objects.get(username=self.cleaned_data['username'])
 		if not usuario.is_active:
 			self.adiciona_erro('Conta desativada, pois: " ' + usuario.perfil.justificativa + '"')
 			valid = False

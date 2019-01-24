@@ -131,14 +131,14 @@ def deletar_postagem(request, postagem_id):
 	return redirect('index')
 
 
-@login_required
-def desativar_conta(request):
-	return render(request, 'desativar_conta.html', {'perfil_logado': get_perfil_logado(request)} )
 
 
-@login_required
+
+#Conferir as partes de ativar conta
+
 def ativar_conta(request):
-	return render(request, 'ativar_conta.html', {'perfil_logado': get_perfil_logado(request)} )
+	form = AtivarContaForm()
+	return render(request, 'ativar_conta.html', {'form':form} )
 
 
 class AtivarContaView(View):
@@ -146,19 +146,20 @@ class AtivarContaView(View):
 		form = AtivarContaForm(request.POST)
 		if form.is_valid():
 			dados_form = form.cleaned_data
-			perfil_logado = get_perfil_logado(request)
-			perfil_logado.justificativa = dados_form['justificativa']
-			perfil_logado.usuario.is_active = False
-			perfil_logado.save()
-			perfil_logado.usuario.save()
+			perfil = Perfil.objects.get(nome=dados_form['nome'])
+			perfil.usuario.is_active = True
+			perfil.usuario.save()
 			
 			return redirect('index')
 
-		return redirect('index')
+		return render(request, 'ativar_conta.html', {'form':form} )
 
 
 
 class DesativarContaView(View):
+	def get(self, request):
+		return render(request, 'desativar_conta.html', {'perfil_logado': get_perfil_logado(request)} )
+
 	def post(self, request):
 		form = DesativarContaForm(request.POST)
 		if form.is_valid():
