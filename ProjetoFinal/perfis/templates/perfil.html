@@ -8,6 +8,8 @@
 		<div class = "col-lg-4">
 
 			<div>
+                <img src="{{perfil_logado.foto_perfil.url}}" style="width:100px; height:70px">
+
 				<h2 style="margin-top: 0px">{{ perfil.nome }}</h2>
 				<address>			
 					Email: <a href = "mailto:{{ perfil.email }}">{{ perfil.email }}</a>
@@ -16,7 +18,8 @@
 				
 				</address>
 
-                <img src="{% url 'media/fotos_perfis/asd.JPG'  %}">
+                
+                
 
 
 				{% if posso_convidar %}
