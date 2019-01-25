@@ -37,6 +37,7 @@ def index(request):
 
 @login_required
 def exibir_perfil(request, perfil_id):
+	form = UploadFotoPerfilForm()
 	perfil = Perfil.objects.get(id=perfil_id)
 	perfil_logado = get_perfil_logado(request)
 	posso_convidar = perfil_logado.pode_convidar(perfil)
@@ -47,7 +48,8 @@ def exibir_perfil(request, perfil_id):
 				'perfil_logado' : perfil_logado,
 				'posso_convidar': posso_convidar,
 				'posso_bloquear': posso_bloquear, 
-				'posso_exibir': posso_exibir
+				'posso_exibir': posso_exibir,
+				'form': form
 				}
 
 	return render(request, 'perfil.html', contexto)
@@ -129,6 +131,50 @@ def deletar_postagem(request, postagem_id):
 	postagem.excluir_postagem()
 
 	return redirect('index')
+
+
+class PerfilView(View):
+	def get(self, request):
+		form = UploadFotoPerfilForm()
+		perfil_logado = get_perfil_logado(request)
+
+		contexto = {'perfil' : perfil_logado, 
+					'perfil_logado' : perfil_logado,
+					'posso_convidar': True,
+					'posso_bloquear': False, 
+					'posso_exibir': True,
+					'form': form
+					}
+
+		return render(request, 'perfil.html', contexto)
+
+
+
+	def post(self, request):
+		form = UploadFotoPerfilForm(request.POST, request.FILES)
+		perfil_logado = get_perfil_logado(request)
+		print(form)
+		if form.is_valid():
+			dados_form = form.cleaned_data
+			print(dados_form)
+			perfil_logado.foto_perfil = dados_form['foto_perfil']
+			perfil_logado.save()
+
+			return redirect('index')
+
+
+		form = UploadFotoPerfilForm()
+
+
+		contexto = {'perfil' : perfil_logado, 
+					'perfil_logado' : perfil_logado,
+					'posso_convidar': True,
+					'posso_bloquear': False, 
+					'posso_exibir': True,
+					'form': form
+					}
+	
+		return render(request, 'perfil.html', contexto)
 
 
 class PostarView(View):

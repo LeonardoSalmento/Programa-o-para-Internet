@@ -15,6 +15,10 @@
 					Nome da empresa: <strong>{{ perfil.nome_empresa }}</strong>
 				
 				</address>
+
+                <img src="{% url 'media/fotos_perfis/asd.JPG'  %}">
+
+
 				{% if posso_convidar %}
 					<a class="btn btn-default" href = "{% url 'convidar' perfil.id %}">
 						Convidar
@@ -22,6 +26,19 @@
 
 					<br>
 				{% endif %}
+
+                <form name = "form" enctype = "multipart/form-data" 
+                    action = "{% url 'meu_perfil' %}" method = "POST" >
+                    {% csrf_token %}
+
+                    <input type = "file" style = "margin-left:20%;" 
+                    placeholder = "Picture" name = "foto_perfil" />
+
+                    <button class="btn btn-primary" type = "submit" value = "upload" >
+                  
+                    </button>
+
+                </form>
 
 				{% if perfil.id == perfil_logado.id %}
 

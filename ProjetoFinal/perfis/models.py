@@ -17,6 +17,7 @@ class Perfil(models.Model):
     contatos = models.ManyToManyField('self', related_name = 'meus_contatos')
     contatos_bloqueados = models.ManyToManyField('self', related_name = 'meus_contatos_bloqueados', symmetrical=False, through='Bloqueio')
     usuario = models.OneToOneField(User, related_name="perfil", on_delete = models.CASCADE)
+    foto_perfil = models.ImageField(upload_to='fotos_perfis', null=True, blank = True)
     
     
     @property

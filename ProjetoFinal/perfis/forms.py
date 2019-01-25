@@ -11,3 +11,5 @@ class PesquisaUsuarioForm(forms.Form):
 	nome = forms.CharField(required=True)
 		
     
+class UploadFotoPerfilForm(forms.Form):
+	foto_perfil = forms.FileField(required=False)

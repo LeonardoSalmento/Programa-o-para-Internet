@@ -18,6 +18,8 @@ from django.urls import path, include
 from perfis import views 
 from usuarios.views import *
 from django.contrib.auth import views as v
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -25,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index,name='index'),
     path('perfil/<int:perfil_id>', views.exibir_perfil, name='exibir'),
+    path('perfil/', views.PerfilView.as_view(), name='meu_perfil'),    
     path('perfil/<int:perfil_id>/convidar', views.convidar, name='convidar'),
     path('perfil/<int:perfil_id>/desfazer', views.desfazer, name='desfazer'),
     path('convite/<int:convite_id>/aceitar', views.aceitar, name='aceitar'),
@@ -50,4 +53,4 @@ urlpatterns = [
          name='password_reset_complete'),
     
     
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
