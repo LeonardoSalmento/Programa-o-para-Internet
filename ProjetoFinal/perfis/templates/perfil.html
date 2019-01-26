@@ -8,15 +8,24 @@
 		<div class = "col-lg-4">
 
 			<div>
-                <img src="{{perfil_logado.foto_perfil.url}}" style="width:100px; height:70px">
+                {% if perfil.foto_perfil %}
+
+                    <img src="{{perfil.foto_perfil.url}}" style="width:100px; height:70px">
+
+                    
+				
+                {% else %}
+                    <img src="/static/img/photo.jpg" style="width:100px; height:70px">
+
+                {% endif %}
 
 				<h2 style="margin-top: 0px">{{ perfil.nome }}</h2>
-				<address>			
-					Email: <a href = "mailto:{{ perfil.email }}">{{ perfil.email }}</a>
-					<br>
-					Nome da empresa: <strong>{{ perfil.nome_empresa }}</strong>
-				
-				</address>
+                <address>			
+                        Email: <a href = "mailto:{{ perfil.email }}">{{ perfil.email }}</a>
+                        <br>
+                        Nome da empresa: <strong>{{ perfil.nome_empresa }}</strong>
+
+                </address>
 
                 
                 

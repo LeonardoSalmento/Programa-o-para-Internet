@@ -121,7 +121,18 @@
             <ul class="list-group">
                 {% for postagem in timeline %}
                 <li class="list-group-item">
+                    {% if postagem.dono.foto_perfil %}
+                        <img src="{{ postagem.dono.foto_perfil.url }}" style="width:40px; height:50px">
+                    
+                    {% else %}
+                        <img src="/static/img/photo.jpg" style="width:40px; height:50px">
+                    {% endif %}
+                    
+                    
                     <h3> {{ postagem.dono }} </h3>
+                    
+                
+
                     <p>{{ postagem }}</p>
                     {% if postagem.dono.id == perfil_logado.id %}
                     <button class="btn btn-danger pull-right btn-confirm">Excluir</button>
